@@ -1,0 +1,95 @@
+{% extends 'user_index.html' %}
+{% block content %}
+{% load static %}
+
+
+    <!-- Start Banner Area -->
+    <section class="banner-area organic-breadcrumb">
+        <div class="container">
+            <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+                <div class="col-first">
+                    <h1>Checkout</h1>
+                    <nav class="d-flex align-items-center">
+                        <a href="index.html">Home<span class="lnr lnr-arrow-right"></span></a>
+                        <a href="single-product.html">Checkout</a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Banner Area -->
+
+    <!--================Checkout Area =================-->
+    <section class="checkout_area section_gap">
+        <div class="container">
+            <div class="returning_customer">
+                <div class="row">
+                    <form class="row contact_form" action="{% url 'checkoutdata' %}" method="post">
+                        {% csrf_token %}
+                    <div class="col-lg-8"> 
+                        <h3>Billing Details</h3>
+                            <div class="col-md-6 form-group p_star">
+                                <input type="text" class="form-control" id="first" name="name" value="{{request.session.uname}}">
+                            </div>
+                            <div class="col-md-6 form-group p_star">
+                                <input type="text" class="form-control" id="number" name="number" value="{{request.session.uphone}}">
+                            </div>
+                            <div class="col-md-6 form-group p_star">
+                                <input type="text" class="form-control" id="email" name="compemailany" value="{{request.session.uemail}}">
+                            </div>
+                            <div class="col-md-12 form-group p_star">
+                                <input type="text" class="form-control" id="address" name="address">
+                                <span class="placeholder" data-placeholder="Address line 01"></span>
+                            </div>
+                            <div class="col-md-12 form-group p_star">
+                                <input type="text" class="form-control" id="state" name="state">
+                                <span class="placeholder" data-placeholder="state"></span>
+                            </div>
+                            <div class="col-md-12 form-group p_star">
+                                <select class="country_select" name="country" id="county">
+                                    <option value="1">India</option>
+                                    <option value="2">Japan</option>
+                                    <option value="4">France</option>
+                                </select>
+                            </div>
+                            <div class="col-md-12 form-group p_star" >
+                                <select class="country_select" name="district" id="district">
+                                    <option value="1">TVM</option>
+                                    <option value="2">Kannur</option>
+                                    <option value="4">Kottayam</option>
+                                </select>
+                            </div>
+                            <div class="col-md-12 form-group">
+                                <input type="text" class="form-control" id="zip" name="postal_zip" placeholder="Postcode/ZIP">
+                            </div>
+                            <div class="col-md-12 form-group">
+                                <div class="creat_account">
+                                    <input type="checkbox" id="f-option2" name="selector">
+                                    <label for="f-option2">Create an account?</label>
+                                </div>
+                                <div>
+                                    <button type="submit" value="submit" class="primary-btn">Place Order</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="order_box">
+                            <h2>Your Order</h2>
+                                <ul class="list">
+                                    {% for i in data %}
+                                    <li>{{ i.productid.c_name }}<span>{{i.total}}</span></a></li>
+                                    {% endfor %}
+                                </ul>
+                                <ul class="list list_2">
+                                    <li><a href="#">Subtotal <span>{{s.total__sum}}<span></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--================End Checkout Area =================-->
+{% endblock %}
